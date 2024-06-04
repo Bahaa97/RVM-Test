@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_type_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="5dp"
+    android:background="@android:color/holo_green_dark">
+
+    <TextView
+        android:id="@+id/tv_unit_name"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:text="1号货箱"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@android:color/white"
+        />
+
+</LinearLayout>

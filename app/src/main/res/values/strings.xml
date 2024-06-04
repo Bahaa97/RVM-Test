@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">RVMTest</string>
+    <string name="scannerA">Scanner A\u0020</string>
+    <string name="scannerB">Scanner B\u0020</string>
+    <string name="scannerA_02">The power of scanner A\u0020</string>
+    <string name="scannerB_02">The power of scanner B\u0020</string>
+    <string name="power_on">have been turn on</string>
+    <string name="power_off">have been turn off</string>
+    <string name="entrance_a_open_success">Entrance A have opened successfully\n</string>
+    <string name="entrance_a_close_success">Entrance A have closed successfully\n</string>
+    <string name="entrance_b_open_success">Entrance B have opened successfully\n</string>
+    <string name="entrance_b_close_success">Entrance B have closed successfully\n</string>
+    <string name="entrance_a_collect">The entrance A have collected\u0020</string>
+    <string name="entrance_b_collect">The entrance B have collected\u0020</string>
+    <string name="shredder_on">Shredder have been start\n</string>
+    <string name="shredder_off">Shredder have been stop\n</string>
+    <string name="distance_show">The distance from the bottom of container is \u0020</string>
+    <string name="login_code_show">Received login code is\u0020</string>
+    <string name="weight_hint">The weight of bottle in\u0020</string>
+    <string name="entrance_a"> entrance A is \u0020</string>
+    <string name="entrance_b"> entrance B is \u0020</string>
+    <string name="open_entrance_a">Open entrance A</string>
+    <string name="close_entrance_a">Close entrance A</string>
+    <string name="trans_in_a">Entrance A accepting</string>
+    <string name="trans_out_a">Entrance A rejecting</string>
+    <string name="open_entrance_b">Open entrance B</string>
+    <string name="close_entrance_b">Close entrance B</string>
+    <string name="trans_int_b">Entrance B accepting</string>
+    <string name="trans_out_b">Entrance B rejecting</string>
+    <string name="open_entrance_all">Open all entrance</string>
+    <string name="close_entrance_all">Close all entrance</string>
+    <string name="start_shredder">Start Shredder</string>
+    <string name="stop_shredder">Stop Shredder</string>
+    <string name="open_recycle_door">Open recycle door</string>
+    <string name="test_for_entrance_01">Check for Entrance NO.1</string>
+    <string name="test_for_entrance_02">Check for Entrance NO.2</string>
+    <string name="uvc_camera">UVC Camera</string>
+
+    <string name="belt_forward">Conveyor Forward</string>
+    <string name="belt_back">Conveyor Back</string>
+    <string name="belt_stop">Conveyor Stop</string>
+    <string name="turn_to_low">Crossbar to low</string>
+    <string name="turn_to_high">Crossbar to high</string>
+    <string name="roller_start">Roller Start</string>
+    <string name="roller_stop">Roller Stop</string>
+    <string name="back">Return</string>
+
+    <string name="recycle_door_open_success">Recycle door have opened successfully\n</string>
+    <string name="recycle_door_close_success">Recycle door have closed successfully\n</string>
+    <string name="bottle_in_hint">Bottle have checked, pass in\n</string>
+    <string name="bottle_out_hint">Bottle have checked, no pass\n</string>
+</resources>
