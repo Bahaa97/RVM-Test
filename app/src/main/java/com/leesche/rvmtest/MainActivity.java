@@ -2,6 +2,7 @@ package com.leesche.rvmtest;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
+
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraSelector;
+import androidx.camera.core.Preview;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
+import androidx.lifecycle.LifecycleOwner;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ScrollView svInfo;
     RecyclerView rvTest, rvChannelA, rvChannelB;
     ImageView ivClear;
+    PreviewView camera;
     Gson gson;
     String devId = "";
     String fwVer = "";
@@ -47,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     List<UnitEntity> devBList = new ArrayList<>();
     List<UnitEntity> unitEntities = new ArrayList<>();
     String curTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+    private ListenableFuture<ProcessCameraProvider> cameraProviderFuture;
     ControlCallBack controlCallBack = new ControlCallBack() {
         @Override
         public void onResult(String cmdBackResult) {
@@ -161,15 +174,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cameraProviderFuture = ProcessCameraProvider.getInstance(this);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
         initView();
-        initTestItem(-1);
+        initTestItem(1);
         initRvm();
+        cameraProviderFuture.addListener(() -> {
+            try {
+                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
+                bindPreview(cameraProvider);
+
+            } catch (ExecutionException | InterruptedException e) {
+                // No errors need to be handled for this Future.
+                // This should never be reached.
+            }
+        }, command -> {
+
+        });
+    }
+    void bindPreview(@NonNull ProcessCameraProvider cameraProvider) {
+        Preview preview = new Preview.Builder()
+                .build();
+
+        CameraSelector cameraSelector = new CameraSelector.Builder()
+                .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+                .build();
+
+        preview.setSurfaceProvider(camera.getSurfaceProvider());
+
+        Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this, cameraSelector, preview);
     }
 
     private void initView() {
         rvTest = findViewById(R.id.rvTest);
+        camera = findViewById(R.id.camera);
         rvChannelA = findViewById(R.id.rvChannelA);
         rvChannelB = findViewById(R.id.rvChannelB);
         tvTitle = findViewById(R.id.tvTitle);
@@ -206,11 +245,17 @@ public class MainActivity extends AppCompatActivity {
                 isInitSuccess = RvmHelper.getInstance().initDev(MainActivity.this, 1);//0-->single entrance  1-->double entrance
             } while (!isInitSuccess);
             RvmHelper.getInstance().addControlCallBack(controlCallBack);
-            while (TextUtils.isEmpty(devId)) {
-                RvmHelper.getInstance().getDevIdAndEnableEntrance(true, true);
-                SystemClock.sleep(6000);
-            }
+//            while (TextUtils.isEmpty(devId)) {
+//                RvmHelper.getInstance().getDevIdAndEnableEntrance(true, true);
+//                SystemClock.sleep(6000);
+//            }
         });
+        if (isInitSuccess){
+            RvmHelper.getInstance().openRecycleDoor();
+            RvmHelper.getInstance().openOrCloseEntrance(0,true);
+            RvmHelper.getInstance().openOrCloseEntrance(1,true);
+            RvmHelper.getInstance().testOpenOrCloseCrashMotor(true);
+        }
     }
 
     private void handlerTestItemByPosition(int position) {

@@ -101,6 +101,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/llStatus" />
+        <androidx.camera.view.PreviewView
+            android:id="@+id/camera"
+            app:layout_constraintTop_toBottomOf="@id/llStatus"
+            android:layout_width="match_parent"
+            android:layout_height="200sp" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
